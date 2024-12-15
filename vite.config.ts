@@ -19,6 +19,7 @@ const chConfig = {
 
 export default defineConfig({
   plugins: [
+    react(),
     mdx({
       remarkPlugins: [
         remarkGfm,
@@ -26,32 +27,32 @@ export default defineConfig({
       ],
       rehypePlugins: [rehypeSlug],
       providerImportSource: '@mdx-js/react',
-    }),
-    react(),
+      jsxRuntime: 'automatic',
+      jsx: true
+    })
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'components': path.resolve(__dirname, './src/components'),
-      'https': 'agent-base',
-      'http': 'agent-base',
-      'stream': 'stream-browserify',
-      'buffer': 'buffer/',
-      'util': 'util/',
-      'url': 'url/',
-      'process': 'process/browser'
-    }
+      'components': path.resolve(__dirname, './src/components')
+    },
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx']
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', '@mdx-js/react', '@code-hike/mdx'],
+    include: ['react', 'react-dom', '@mdx-js/react'],
+    exclude: ['@code-hike/lighter', '@code-hike/mdx']
   },
   define: {
     'process.env.NODE_DEBUG': 'false',
     'process.platform': JSON.stringify('browser'),
     'process.version': JSON.stringify(''),
-    'Buffer.isBuffer': 'undefined'
+    'global': 'globalThis'
   },
   assetsInclude: ['**/*.mdx'],
+  esbuild: {
+    jsxInject: `import React from 'react'`,
+    target: 'esnext'
+  },
   server: {
     host: true,
     proxy: {
