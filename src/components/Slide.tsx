@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 interface SlideProps {
   children: ReactNode
@@ -8,9 +8,9 @@ interface SlideProps {
 
 export function Slide({ children, layout = 'default', className = '' }: SlideProps) {
   const layouts = {
-    default: 'p-8',
-    center: 'flex items-center justify-center min-h-screen p-8',
-    split: 'grid grid-cols-2 gap-8 p-8',
+    default: 'prose dark:prose-invert p-8',
+    center: 'prose dark:prose-invert flex items-center justify-center min-h-screen p-8',
+    split: 'prose dark:prose-invert grid grid-cols-2 gap-8 p-8',
   }
 
   return (
