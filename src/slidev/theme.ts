@@ -1,6 +1,6 @@
-import { defineTheme } from '@slidev/types'
+import { ThemeConfig } from '@slidev/types'
 
-export default defineTheme({
+export default {
   name: 'ai-slides',
   colors: {
     primary: '#3B82F6',
@@ -15,4 +15,4 @@ export default defineTheme({
     'center': () => import('./layouts/center.vue'),
     'split': () => import('./layouts/split.vue'),
   },
-})
+} as ThemeConfig

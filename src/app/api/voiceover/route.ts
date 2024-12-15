@@ -14,6 +14,7 @@ export async function POST(req: Request) {
       model: body.model,
       format: body.format,
       speed: body.speed,
+      tier: body.tier || 'free',
     }
 
     // Generate voiceover with streaming response

@@ -19,7 +19,8 @@ describe('Audio Services', () => {
       voice: 'alloy',
       model: 'tts-1',
       format: 'mp3',
-      speed: 1.0
+      speed: 1.0,
+      tier: 'free'
     }
 
     const result = await generateVoiceoverBuffer(options)
@@ -37,7 +38,8 @@ describe('Audio Services', () => {
       voice: 'rachel',
       model: 'eleven_monolingual_v1',
       format: 'mp3',
-      speed: 1.0
+      speed: 1.0,
+      tier: 'starter'
     }
 
     const result = await service.generateAudio(options)
@@ -54,7 +56,8 @@ describe('Audio Services', () => {
       voice: 'alloy',
       model: 'tts-1',
       format: 'mp3',
-      speed: 1.0
+      speed: 1.0,
+      tier: 'free'
     }
 
     await expect(generateVoiceoverBuffer(options)).rejects.toThrow('Content is required')
@@ -68,7 +71,8 @@ describe('Audio Services', () => {
       voice: 'alloy',
       model: 'tts-1',
       format: 'mp3',
-      speed: 1.0
+      speed: 1.0,
+      tier: 'free'
     }
 
     await expect(service.generateAudio(options)).rejects.toThrow('OPENAI API error')

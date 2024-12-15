@@ -21,17 +21,14 @@ importers:
         specifier: ^0.50.0-beta.10
         version: 0.50.0-beta.10(@babel/parser@7.26.3)(@nuxt/kit@3.14.1592(rollup@4.28.1))(@types/markdown-it@14.1.2)(@types/node@22.10.2)(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(tsx@4.19.2)
       '@slidev/client':
-        specifier: ^0.50.0-beta.10
+        specifier: 0.50.0-beta.10
         version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@slidev/parser':
-        specifier: ^0.50.0-beta.10
+        specifier: 0.50.0-beta.10
         version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@slidev/theme-default':
         specifier: ^0.25.0
         version: 0.25.0
-      '@slidev/types':
-        specifier: ^0.50.0-beta.10
-        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@tailwindcss/typography':
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.16)
@@ -81,6 +78,9 @@ importers:
       '@mdx-js/rollup':
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.14.0)(rollup@4.28.1)
+      '@slidev/types':
+        specifier: 0.50.0-beta.10
+        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@types/mdx-js__react':
         specifier: ^2.0.0
         version: 2.0.0(@types/react@19.0.1)(react@18.3.1)
