@@ -1,5 +1,5 @@
-import { generateVoiceover } from '../../../lib/ai'
-import { VoiceoverOptions } from '../../../lib/schemas'
+import { generateVoiceoverBuffer } from '../../../../lib/ai'
+import { VoiceoverOptions } from '../../../../lib/schemas'
 
 export const runtime = 'edge'
 
@@ -16,8 +16,17 @@ export async function POST(req: Request) {
       speed: body.speed,
     }
 
-    // Generate voiceover with streaming response
-    return generateVoiceover(options)
+    // Generate voiceover with full buffer response
+    const { audio, format, duration } = await generateVoiceoverBuffer(options)
+
+    // Return the audio buffer with appropriate headers
+    return new Response(audio, {
+      headers: {
+        'Content-Type': `audio/${format}`,
+        'Content-Length': audio.byteLength.toString(),
+        'X-Audio-Duration': duration.toString(),
+      },
+    })
   } catch (error) {
     console.error('Error in voiceover generation:', error)
     return new Response(
