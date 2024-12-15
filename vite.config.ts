@@ -32,11 +32,24 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'components': path.resolve(__dirname, './src/components')
+      'components': path.resolve(__dirname, './src/components'),
+      'https': 'agent-base',
+      'http': 'agent-base',
+      'stream': 'stream-browserify',
+      'buffer': 'buffer/',
+      'util': 'util/',
+      'url': 'url/',
+      'process': 'process/browser'
     }
   },
   optimizeDeps: {
     include: ['react', 'react-dom', '@mdx-js/react', '@code-hike/mdx'],
+  },
+  define: {
+    'process.env.NODE_DEBUG': 'false',
+    'process.platform': JSON.stringify('browser'),
+    'process.version': JSON.stringify(''),
+    'Buffer.isBuffer': 'undefined'
   },
   assetsInclude: ['**/*.mdx'],
   server: {
