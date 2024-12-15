@@ -10,20 +10,40 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
-    "ai": "^2.2.31",
+    "@ai-sdk/openai": "^1.0.8",
+    "@mdx-js/mdx": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@slidev/cli": "^0.50.0-beta.10",
+    "@slidev/client": "^0.50.0-beta.10",
+    "@slidev/parser": "^0.50.0-beta.10",
+    "@slidev/theme-default": "^0.25.0",
+    "@slidev/types": "^0.50.0-beta.10",
+    "@tailwindcss/typography": "^0.5.15",
+    "ai": "^2.2.37",
+    "autoprefixer": "^10.4.20",
+    "edge-runtime": "^4.0.1",
+    "openai": "^4.76.3",
+    "openai-edge": "^1.2.2",
+    "postcss": "^8.4.49",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@mdx-js/react": "^3.0.0",
-    "@mdx-js/mdx": "^3.0.0",
-    "tailwindcss": "^3.4.0",
-    "@tailwindcss/typography": "^0.5.10"
+    "rehype-highlight": "^7.0.1",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.0",
+    "shiki": "^1.24.2",
+    "tailwindcss": "^3.4.16",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@mdx-js/rollup": "^3.1.0",
+    "@types/mdx-js__react": "^2.0.0",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-vue": "^5.2.1",
     "typescript": "^5.7.2",
-    "vite": "^6.0.3"
+    "vite": "^6.0.3",
+    "vue": "^3.5.13"
   }
 }

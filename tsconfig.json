@@ -17,9 +17,11 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["src/*"],
+      "components/*": ["src/components/*"]
+    },
+    "types": ["vite/client", "@mdx-js/react"]
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

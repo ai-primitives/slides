@@ -4,9 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI-Generated MDX Slides</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+      // Check for dark mode preference
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark')
+      }
+
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            typography: {
+              DEFAULT: {
+                css: {
+                  maxWidth: 'none',
+                  color: 'inherit',
+                  a: {
+                    color: 'inherit',
+                    textDecoration: 'underline',
+                    fontWeight: '500',
+                  },
+                  code: {
+                    color: 'inherit',
+                    background: 'rgba(0, 0, 0, 0.1)',
+                    padding: '0.2em 0.4em',
+                    borderRadius: '0.2em',
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
+    </script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="dark:bg-gray-900 dark:text-white">
+    <div id="root" class="prose dark:prose-invert max-w-none"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
