@@ -1,4 +1,4 @@
-export type { Slide, SlideDeck, GenerateSlideOptions, GenerateVoiceoverOptions } from './ai'
+import type { Slide, SlideDeck } from './schemas'
 
 // Additional types for the AI components
 export interface AISlideGeneratorProps {
