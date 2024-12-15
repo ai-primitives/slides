@@ -27,7 +27,25 @@ export interface GenerateSlideOptions {
   currentContent?: string
 }
 
-export interface GenerateVoiceoverOptions {
-  content: string
-  voice?: string
+// Voice provider and format options
+export const VoiceProviderSchema = z.enum(['openai', 'elevenlabs'])
+export const AudioFormatSchema = z.enum(['mp3', 'opus', 'aac', 'flac'])
+
+export const VoiceoverOptionsSchema = z.object({
+  content: z.string(),
+  voice: z.string().optional().default('alloy'), // OpenAI default voice
+  provider: VoiceProviderSchema.optional().default('openai'),
+  model: z.string().optional().default('tts-1'),
+  format: AudioFormatSchema.optional().default('mp3'),
+  speed: z.number().optional().default(1.0)
+})
+
+export type VoiceProvider = z.infer<typeof VoiceProviderSchema>
+export type AudioFormat = z.infer<typeof AudioFormatSchema>
+export type VoiceoverOptions = z.infer<typeof VoiceoverOptionsSchema>
+
+export interface VoiceoverResponse {
+  audio: ArrayBuffer
+  format: AudioFormat
+  duration: number
 }
