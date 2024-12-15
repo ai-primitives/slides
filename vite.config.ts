@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import vue from '@vitejs/plugin-vue'
 import mdx from '@mdx-js/rollup'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
@@ -14,15 +15,30 @@ export default defineConfig({
       providerImportSource: '@mdx-js/react',
     }),
     react(),
+    vue({
+      include: [/\.vue$/],
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('slidev-'),
+        },
+      },
+    }),
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'components': path.resolve(__dirname, './src/components')
+      'components': path.resolve(__dirname, './src/components'),
+      'slidev': path.resolve(__dirname, './src/slidev'),
     }
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', '@mdx-js/react'],
+    include: ['react', 'react-dom', '@mdx-js/react', 'vue'],
+  },
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      external: ['@slidev/client/styles'],
+    },
   },
   server: {
     host: true,
