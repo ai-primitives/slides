@@ -11,10 +11,12 @@ class AudioServiceError extends Error {
 
 export class OpenAIAudioService extends BaseAudioService {
   constructor(options?: AudioServiceOptions) {
-    super(options)
+    super({ apiKey: options?.apiKey || process.env.OPENAI_API_KEY || '', tier: options?.tier })
   }
 
   async generateAudio(options: VoiceoverOptions): Promise<AudioServiceResult> {
+    this.checkRateLimit('openai')
+
     const {
       content,
       voice = DEFAULT_VOICE_CONFIG.voice,
@@ -58,6 +60,8 @@ export class OpenAIAudioService extends BaseAudioService {
   }
 
   async createStream(options: VoiceoverOptions): Promise<AudioStreamController> {
+    this.checkRateLimit('openai')
+
     const {
       content,
       voice = DEFAULT_VOICE_CONFIG.voice,
@@ -141,10 +145,12 @@ export class OpenAIAudioService extends BaseAudioService {
 
 export class ElevenLabsAudioService extends BaseAudioService {
   constructor(options?: AudioServiceOptions) {
-    super(options)
+    super({ apiKey: options?.apiKey || process.env.ELEVENLABS_API_KEY || '', tier: options?.tier })
   }
 
   async generateAudio(options: VoiceoverOptions): Promise<AudioServiceResult> {
+    this.checkRateLimit('elevenlabs')
+
     const {
       content,
       voice = DEFAULT_VOICE_CONFIG.voice,
@@ -191,6 +197,8 @@ export class ElevenLabsAudioService extends BaseAudioService {
   }
 
   async createStream(options: VoiceoverOptions): Promise<AudioStreamController> {
+    this.checkRateLimit('elevenlabs')
+
     const {
       content,
       voice = DEFAULT_VOICE_CONFIG.voice,

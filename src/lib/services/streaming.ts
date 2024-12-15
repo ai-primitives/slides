@@ -1,24 +1,10 @@
-import { VoiceoverOptions, AudioFormat } from '../schemas'
+import { VoiceoverOptions } from '../schemas'
 import { DEFAULT_VOICE_CONFIG } from '../constants'
-
-export interface AudioStreamController {
-  start: () => void
-  pause: () => void
-  resume: () => void
-  stop: () => void
-  onData: (callback: (chunk: Uint8Array) => void) => void
-  onComplete: (callback: () => void) => void
-  onError: (callback: (error: Error) => void) => void
-}
+import { OpenAIAudioService, ElevenLabsAudioService } from './audio'
+import { AudioStreamController } from './types'
 
 export async function createOpenAIStream(options: VoiceoverOptions): Promise<AudioStreamController> {
-  const {
-    content,
-    voice = DEFAULT_VOICE_CONFIG.voice,
-    model = DEFAULT_VOICE_CONFIG.model,
-    format = DEFAULT_VOICE_CONFIG.format,
-    speed = DEFAULT_VOICE_CONFIG.speed,
-  } = options
+  const service = new OpenAIAudioService({ apiKey: process.env.OPENAI_API_KEY, tier: options.tier })
 
   let dataCallback: ((chunk: Uint8Array) => void) | undefined
   let completeCallback: (() => void) | undefined
@@ -28,6 +14,7 @@ export async function createOpenAIStream(options: VoiceoverOptions): Promise<Aud
   return {
     start: async () => {
       try {
+        service.checkRateLimit('openai')
         abortController = new AbortController()
         const response = await fetch('https://api.openai.com/v1/audio/speech', {
           method: 'POST',
@@ -36,11 +23,11 @@ export async function createOpenAIStream(options: VoiceoverOptions): Promise<Aud
             Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
           },
           body: JSON.stringify({
-            model,
-            input: content,
-            voice,
-            response_format: format,
-            speed,
+            model: options.model || DEFAULT_VOICE_CONFIG.model,
+            input: options.content,
+            voice: options.voice || DEFAULT_VOICE_CONFIG.voice,
+            response_format: options.format || DEFAULT_VOICE_CONFIG.format,
+            speed: options.speed || DEFAULT_VOICE_CONFIG.speed,
           }),
           signal: abortController.signal,
         })
@@ -67,12 +54,8 @@ export async function createOpenAIStream(options: VoiceoverOptions): Promise<Aud
       }
     },
     pause: () => {
-      // OpenAI doesn't support pausing streams
-      // We'll need to buffer the audio on the client side
     },
     resume: () => {
-      // OpenAI doesn't support resuming streams
-      // We'll need to buffer the audio on the client side
     },
     stop: () => {
       abortController?.abort()
@@ -90,43 +73,45 @@ export async function createOpenAIStream(options: VoiceoverOptions): Promise<Aud
 }
 
 export async function createElevenLabsStream(options: VoiceoverOptions): Promise<AudioStreamController> {
-  const {
-    content,
-    voice = DEFAULT_VOICE_CONFIG.voice,
-    model = DEFAULT_VOICE_CONFIG.model,
-    speed = DEFAULT_VOICE_CONFIG.speed,
-  } = options
+  const service = new ElevenLabsAudioService({ apiKey: process.env.ELEVENLABS_API_KEY, tier: options.tier })
 
   let dataCallback: ((chunk: Uint8Array) => void) | undefined
   let completeCallback: (() => void) | undefined
   let errorCallback: ((error: Error) => void) | undefined
   let abortController: AbortController | undefined
 
+  const apiKey = process.env.ELEVENLABS_API_KEY
+  if (!apiKey) {
+    throw new Error('ElevenLabs API key is not configured')
+  }
+
   return {
     start: async () => {
       try {
+        service.checkRateLimit('elevenlabs')
         abortController = new AbortController()
-        const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice}/stream`, {
+        const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${options.voice || DEFAULT_VOICE_CONFIG.voice}/stream`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'xi-api-key': process.env.ELEVENLABS_API_KEY!,
+            'xi-api-key': apiKey,
           },
           body: JSON.stringify({
-            text: content,
-            model_id: model,
+            text: options.content,
+            model_id: options.model || DEFAULT_VOICE_CONFIG.model,
             voice_settings: {
               stability: 0.5,
               similarity_boost: 0.75,
               style: 0.5,
-              speaking_rate: speed,
+              speaking_rate: options.speed || DEFAULT_VOICE_CONFIG.speed,
             },
           }),
           signal: abortController.signal,
         })
 
         if (!response.ok) {
-          throw new Error(`ElevenLabs API error: ${response.statusText}`)
+          const errorData = await response.json().catch(() => ({ detail: { message: response.statusText } }))
+          throw new Error(`ElevenLabs API error: ${errorData.detail?.message || response.statusText}`)
         }
 
         if (!response.body) {
@@ -138,7 +123,10 @@ export async function createElevenLabsStream(options: VoiceoverOptions): Promise
         while (true) {
           const { done, value } = await reader.read()
           if (done) break
-          dataCallback?.(value)
+
+          if (value && value.length > 0) {
+            dataCallback?.(value)
+          }
         }
 
         completeCallback?.()
@@ -147,12 +135,8 @@ export async function createElevenLabsStream(options: VoiceoverOptions): Promise
       }
     },
     pause: () => {
-      // ElevenLabs doesn't support pausing streams
-      // We'll need to buffer the audio on the client side
     },
     resume: () => {
-      // ElevenLabs doesn't support resuming streams
-      // We'll need to buffer the audio on the client side
     },
     stop: () => {
       abortController?.abort()

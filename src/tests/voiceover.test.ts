@@ -30,6 +30,7 @@ describe('Audio Services', () => {
   }, 10000)
 
   it('should generate audio with ElevenLabs', async () => {
+    const service = new ElevenLabsAudioService({ apiKey: process.env.ELEVENLABS_API_KEY })
     const options: VoiceoverOptions = {
       content: 'Hello, this is a test of the ElevenLabs text-to-speech system.',
       provider: 'elevenlabs',
@@ -39,7 +40,7 @@ describe('Audio Services', () => {
       speed: 1.0
     }
 
-    const result = await generateVoiceoverBuffer(options)
+    const result = await service.generateAudio(options)
     expect(result.audio).toBeDefined()
     expect(result.audio.byteLength).toBeGreaterThan(0)
     expect(result.format).toBe('mp3')

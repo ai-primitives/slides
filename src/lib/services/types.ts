@@ -23,4 +23,5 @@ export interface AudioService {
 
 export interface AudioServiceOptions {
   apiKey?: string
+  tier?: 'free' | 'starter' | 'creator' | 'pro' | 'business' | 'enterprise'
 }
