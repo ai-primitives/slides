@@ -1,46 +1,38 @@
-import React, { useState } from 'react'
-import { GenerateSlideOptions, GenerateVoiceoverOptions } from '../lib/ai'
+import { useState } from 'react'
+import { useCompletion } from 'ai/react'
 
 interface AISlideGeneratorProps {
   onSlidesGenerated?: (content: string) => void
-  onVoiceoverGenerated?: (content: string) => void
 }
 
-export function AISlideGenerator({ onSlidesGenerated, onVoiceoverGenerated }: AISlideGeneratorProps) {
+export function AISlideGenerator({ onSlidesGenerated }: AISlideGeneratorProps) {
   const [topic, setTopic] = useState('')
   const [style, setStyle] = useState('professional')
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const { complete, completion, isLoading } = useCompletion({
+    api: '/api/generate',
+    onResponse: (response) => {
+      if (!response.ok) {
+        setError('Failed to generate slides. Please try again.')
+      }
+    },
+    onFinish: (result) => {
+      onSlidesGenerated?.(result)
+    },
+    onError: (error) => {
+      console.error('Error generating slides:', error)
+      setError('An error occurred while generating slides.')
+    }
+  })
 
   const generateSlides = async () => {
     try {
-      setLoading(true)
       setError(null)
-
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic, style }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to generate slides')
-      }
-
-      const reader = response.body?.getReader()
-      const decoder = new TextDecoder()
-      let content = ''
-
-      while (reader) {
-        const { done, value } = await reader.read()
-        if (done) break
-        content += decoder.decode(value)
-        onSlidesGenerated?.(content)
-      }
+      await complete(`Create a slide deck about ${topic} in a ${style} style.`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
-    } finally {
-      setLoading(false)
+      console.error('Error:', err)
+      setError('Failed to generate slides. Please try again.')
     }
   }
 
@@ -79,15 +71,21 @@ export function AISlideGenerator({ onSlidesGenerated, onVoiceoverGenerated }: AI
 
       <button
         onClick={generateSlides}
-        disabled={loading || !topic}
+        disabled={isLoading || !topic}
         className="w-full p-2 bg-blue-500 text-white rounded disabled:opacity-50"
       >
-        {loading ? 'Generating...' : 'Generate Slides'}
+        {isLoading ? 'Generating...' : 'Generate Slides'}
       </button>
 
       {error && (
         <div className="p-2 text-red-500 bg-red-50 rounded">
           {error}
+        </div>
+      )}
+
+      {completion && !error && (
+        <div className="p-2 text-green-500 bg-green-50 rounded">
+          Slides generated successfully!
         </div>
       )}
     </div>
