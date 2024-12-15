@@ -1,6 +1,6 @@
 import React from 'react'
 import { MDXProvider } from './MDXProvider'
-import { exampleContent } from '../slides/example'
+import exampleContent from '../slides/example.mdx?raw'
 
 export function ExampleSlides() {
   return (
