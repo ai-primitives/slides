@@ -37,7 +37,8 @@ export const VoiceoverOptionsSchema = z.object({
   provider: VoiceProviderSchema.optional().default('openai'),
   model: z.string().optional().default('tts-1'),
   format: AudioFormatSchema.optional().default('mp3'),
-  speed: z.number().optional().default(1.0)
+  speed: z.number().optional().default(1.0),
+  apiKey: z.string().optional() // Optional API key for service instantiation
 })
 
 export type VoiceProvider = z.infer<typeof VoiceProviderSchema>
