@@ -3,14 +3,31 @@ import react from '@vitejs/plugin-react'
 import mdx from '@mdx-js/rollup'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
-import rehypeHighlight from 'rehype-highlight'
+import { remarkCodeHike, recmaCodeHike } from "codehike/mdx"
 import path from 'path'
+
+/** @type {import('codehike/mdx').CodeHikeConfig} */
+const chConfig = {
+  theme: {
+    light: "github-light",
+    dark: "github-dark"
+  },
+  lineNumbers: true,
+  showCopyButton: true,
+  autoImport: false // We'll handle imports manually for better control
+}
 
 export default defineConfig({
   plugins: [
     mdx({
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeSlug, rehypeHighlight],
+      remarkPlugins: [
+        remarkGfm,
+        [remarkCodeHike, chConfig]
+      ],
+      recmaPlugins: [
+        [recmaCodeHike, chConfig]
+      ],
+      rehypePlugins: [rehypeSlug], // Removed rehypeHighlight as Codehike handles highlighting
       providerImportSource: '@mdx-js/react',
     }),
     react(),

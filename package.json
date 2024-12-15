@@ -21,6 +21,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "ai": "^2.2.37",
     "autoprefixer": "^10.4.20",
+    "codehike": "^1.0.4",
     "edge-runtime": "^4.0.1",
     "openai": "^4.76.3",
     "openai-edge": "^1.2.2",
