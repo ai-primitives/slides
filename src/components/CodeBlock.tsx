@@ -1,37 +1,44 @@
-import { useEffect, useRef } from 'react'
-import * as shiki from 'shiki'
+import { useEffect, useState } from "react"
 
 interface CodeBlockProps {
   children: string
   language?: string
   className?: string
+  code?: any
+  theme?: string
 }
 
-export function CodeBlock({ children, language = 'typescript', className = '' }: CodeBlockProps) {
-  const codeRef = useRef<HTMLPreElement>(null)
+export function CodeBlock({
+  children,
+  language = "typescript",
+  className = "",
+  code = children,
+  theme: themeProp,
+}: CodeBlockProps) {
+  const [systemTheme, setSystemTheme] = useState("github-light")
 
   useEffect(() => {
-    async function highlightCode() {
-      const highlighter = await shiki.getHighlighter({
-        themes: ['github-dark'],
-        langs: ['typescript', 'javascript', 'jsx', 'tsx', 'html', 'css']
-      })
+    const isDark = document.documentElement.classList.contains("dark")
+    setSystemTheme(isDark ? "github-dark" : "github-light")
 
-      if (codeRef.current) {
-        const html = highlighter.codeToHtml(children, {
-          theme: 'github-dark',
-          lang: language as any
-        })
-        codeRef.current.innerHTML = html
-      }
-    }
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark")
+      setSystemTheme(isDark ? "github-dark" : "github-light")
+    })
 
-    highlightCode()
-  }, [children, language])
+    observer.observe(document.documentElement, { attributes: true })
+    return () => observer.disconnect()
+  }, [])
+
+  const theme = themeProp || systemTheme
 
   return (
-    <pre ref={codeRef} className={`rounded-lg p-4 overflow-x-auto ${className}`}>
-      {children}
+    <pre
+      className={`rounded-lg p-4 overflow-x-auto ${className}`}
+      data-language={language}
+      data-theme={theme}
+    >
+      {code}
     </pre>
   )
 }

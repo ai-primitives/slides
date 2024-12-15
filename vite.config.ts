@@ -39,7 +39,7 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', '@mdx-js/react'],
+    include: ['react', 'react-dom', '@mdx-js/react', 'codehike'],
   },
   server: {
     host: true,
