@@ -17,14 +17,13 @@ export function MDXProvider({ children, content }: MDXProviderProps) {
     if (content) {
       compile(content, {
         outputFormat: 'function-body',
-        pragma: 'React.createElement',
-        pragmaFrag: 'React.Fragment',
-        jsxImportSource: '@mdx-js/react',
+        jsxRuntime: 'automatic',
+        jsxImportSource: 'react',
         development: true,
       })
         .then((compiled) => {
-          // @ts-ignore - Runtime type mismatch is expected
-          const { default: MDXContent } = new Function('runtime', `${compiled}`)(runtime)
+          const evalFn = new Function('React', 'runtime', `${compiled}`)
+          const { default: MDXContent } = evalFn(runtime, runtime)
           setCompiledContent(<MDXContent components={components} />)
           setError(null)
         })
