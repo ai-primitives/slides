@@ -1,5 +1,6 @@
-import { VoiceoverOptions, VoiceoverResponse, AudioFormat } from './schemas'
+import { VoiceoverOptions, AudioFormat } from './schemas'
 import { DEFAULT_VOICE_CONFIG } from './constants'
+import { OpenAIStream } from 'ai'
 
 /**
  * Converts a ReadableStream to ArrayBuffer
@@ -113,5 +114,91 @@ export function createAudioPlayer(audio: HTMLAudioElement): {
     onComplete: (callback) => {
       completeCallback = callback
     }
+  }
+}
+
+interface VoiceoverResult {
+  audio: ArrayBuffer
+  format: AudioFormat
+  duration: number
+}
+
+/**
+ * Generates voiceover audio using either OpenAI or ElevenLabs
+ */
+export async function generateVoiceoverBuffer(options: VoiceoverOptions): Promise<VoiceoverResult> {
+  const {
+    content,
+    provider = DEFAULT_VOICE_CONFIG.provider,
+    voice = DEFAULT_VOICE_CONFIG.voice,
+    model = DEFAULT_VOICE_CONFIG.model,
+    format = DEFAULT_VOICE_CONFIG.format,
+    speed = DEFAULT_VOICE_CONFIG.speed,
+  } = options
+
+  if (!content || content.trim().length === 0) {
+    throw new Error('Content is required')
+  }
+
+  if (!validateAudioFormat(format)) {
+    throw new Error(`Unsupported audio format: ${format}`)
+  }
+
+  let audioBuffer: ArrayBuffer
+
+  if (provider === 'openai') {
+    const response = await fetch('https://api.openai.com/v1/audio/speech', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model,
+        input: content,
+        voice: voice as 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer',
+        response_format: format,
+        speed,
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.statusText}`)
+    }
+
+    const stream = OpenAIStream(response)
+    audioBuffer = await streamToBuffer(stream)
+  } else if (provider === 'elevenlabs') {
+    const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'xi-api-key': process.env.ELEVENLABS_API_KEY!,
+      },
+      body: JSON.stringify({
+        text: content,
+        model_id: model,
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.75,
+          style: 0.5,
+          speaking_rate: speed,
+        },
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`ElevenLabs API error: ${response.statusText}`)
+    }
+
+    audioBuffer = await response.arrayBuffer()
+  } else {
+    throw new Error(`Unsupported provider: ${provider}`)
+  }
+
+  return {
+    audio: audioBuffer,
+    format,
+    duration: estimateAudioDuration(content, speed),
   }
 }
