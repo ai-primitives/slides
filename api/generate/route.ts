@@ -1,4 +1,4 @@
-import { generateSlides } from '../../../lib/ai'
+import { generateSlides } from '@/lib/ai'
 
 export const runtime = 'edge'
 

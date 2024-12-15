@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && pnpm run build:api",
-    "build:api": "tsc --project tsconfig.api.json",
+    "build": "tsc && vite build",
+    "build:api": "tsc --project tsconfig.api.json --noEmit",
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest"

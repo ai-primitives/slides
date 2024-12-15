@@ -2,20 +2,22 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
-    "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
-    "moduleResolution": "bundler",
+    "target": "es2020",
+    "lib": ["es2020"],
+    "moduleResolution": "node",
     "allowJs": true,
-    "noEmit": false,
-    "incremental": true,
+    "noEmit": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "strict": true,
-    "outDir": "dist/api"
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "lib/*": ["src/lib/*"]
+    }
   },
-  "include": ["src/app/api/**/*"],
+  "include": ["api/**/*.ts"],
   "exclude": ["node_modules"]
 }

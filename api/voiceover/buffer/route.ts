@@ -1,5 +1,5 @@
-import { generateVoiceoverBuffer } from '../../../../lib/ai'
-import { VoiceoverOptions } from '../../../../lib/schemas'
+import { generateVoiceoverBuffer } from '@/lib/ai'
+import { VoiceoverOptions } from '@/lib/schemas'
 
 export const runtime = 'edge'
 

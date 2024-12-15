@@ -20,10 +20,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "components/*": ["src/components/*"]
+      "components/*": ["src/components/*"],
+      "lib/*": ["src/lib/*"]
     },
     "types": ["vite/client", "@mdx-js/react", "@slidev/types"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx", "src/**/*.vue", "api/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
