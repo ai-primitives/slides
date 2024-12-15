@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
+import { CH } from "@code-hike/mdx/components"
 
 interface CodeBlockProps {
   children: string
   language?: string
   className?: string
-  code?: any
   theme?: string
 }
 
@@ -12,7 +12,6 @@ export function CodeBlock({
   children,
   language = "typescript",
   className = "",
-  code = children,
   theme: themeProp,
 }: CodeBlockProps) {
   const [systemTheme, setSystemTheme] = useState("github-light")
@@ -33,12 +32,14 @@ export function CodeBlock({
   const theme = themeProp || systemTheme
 
   return (
-    <pre
-      className={`rounded-lg p-4 overflow-x-auto ${className}`}
-      data-language={language}
-      data-theme={theme}
-    >
-      {code}
-    </pre>
+    <div className={`rounded-lg overflow-hidden ${className}`}>
+      <CH
+        code={children}
+        lang={language}
+        theme={theme}
+        minHeight={50}
+        showCopyButton
+      />
+    </div>
   )
 }

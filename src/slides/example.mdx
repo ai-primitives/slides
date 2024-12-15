@@ -1,3 +1,7 @@
+{/* @jsxRuntime automatic @jsxImportSource react */}
+import { Slide } from '../components/Slide'
+import { CodeBlock } from '../components/CodeBlock'
+
 <Slide layout="center">
   # Welcome to AI-Generated Slides
 
@@ -19,15 +23,13 @@
     Here's a simple React component in TSX
   </div>
   <div>
-    <CodeBlock language="tsx">
-      {`interface Props {
+    <CodeBlock language="tsx">{`interface Props {
   name: string;
 }
 
 function Welcome({ name }: Props) {
   return <h1>Hello, {name}!</h1>;
-}`}
-    </CodeBlock>
+}`}</CodeBlock>
   </div>
 </Slide>
 
@@ -37,13 +39,11 @@ function Welcome({ name }: Props) {
     Plain JavaScript function
   </div>
   <div>
-    <CodeBlock language="javascript">
-      {`function calculateTotal(items) {
+    <CodeBlock language="javascript">{`function calculateTotal(items) {
   return items.reduce((sum, item) => {
     return sum + item.price;
   }, 0);
-}`}
-    </CodeBlock>
+}`}</CodeBlock>
   </div>
 </Slide>
 
@@ -53,8 +53,7 @@ function Welcome({ name }: Props) {
     React component with JSX
   </div>
   <div>
-    <CodeBlock language="jsx">
-      {`function TodoList({ items }) {
+    <CodeBlock language="jsx">{`function TodoList({ items }) {
   return (
     <ul className="todo-list">
       {items.map(item => (
@@ -62,8 +61,7 @@ function Welcome({ name }: Props) {
       ))}
     </ul>
   );
-}`}
-    </CodeBlock>
+}`}</CodeBlock>
   </div>
 </Slide>
 
@@ -73,16 +71,14 @@ function Welcome({ name }: Props) {
     Basic HTML structure
   </div>
   <div>
-    <CodeBlock language="html">
-      {`<article class="card">
+    <CodeBlock language="html">{`<article class="card">
   <header>
     <h2>Card Title</h2>
   </header>
   <div class="content">
     <p>Card content goes here</p>
   </div>
-</article>`}
-    </CodeBlock>
+</article>`}</CodeBlock>
   </div>
 </Slide>
 
@@ -92,8 +88,7 @@ function Welcome({ name }: Props) {
     Responsive styles
   </div>
   <div>
-    <CodeBlock language="css">
-      {`.card {
+    <CodeBlock language="css">{`.card {
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
@@ -105,7 +100,6 @@ function Welcome({ name }: Props) {
   .card {
     margin: 1rem;
   }
-}`}
-    </CodeBlock>
+}`}</CodeBlock>
   </div>
 </Slide>

@@ -19,17 +19,19 @@ const chConfig = {
 
 export default defineConfig({
   plugins: [
-    react(),
-    mdx({
-      remarkPlugins: [
-        remarkGfm,
-        [remarkCodeHike, chConfig]
-      ],
-      rehypePlugins: [rehypeSlug],
-      providerImportSource: '@mdx-js/react',
-      jsxRuntime: 'automatic',
-      jsx: true
-    })
+    {
+      ...mdx({
+        remarkPlugins: [
+          remarkGfm,
+          [remarkCodeHike, chConfig]
+        ],
+        rehypePlugins: [rehypeSlug],
+        providerImportSource: '@mdx-js/react',
+        jsxRuntime: 'automatic'
+      }),
+      enforce: 'pre'
+    },
+    react()
   ],
   resolve: {
     alias: {
@@ -50,7 +52,6 @@ export default defineConfig({
   },
   assetsInclude: ['**/*.mdx'],
   esbuild: {
-    jsxInject: `import React from 'react'`,
     target: 'esnext'
   },
   server: {
