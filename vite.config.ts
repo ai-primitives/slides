@@ -29,18 +29,22 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       'components': path.resolve(__dirname, './src/components'),
       'slidev': path.resolve(__dirname, './src/slidev'),
+      'lib': path.resolve(__dirname, './src/lib'),
     }
   },
   optimizeDeps: {
     include: ['react', 'react-dom', '@mdx-js/react', 'vue'],
+    exclude: ['@vercel/edge']
   },
   build: {
     outDir: 'dist',
     rollupOptions: {
       external: ['@slidev/client/styles'],
     },
+    target: 'esnext',
+    sourcemap: true
   },
-  server: {
+  server: process.env.NODE_ENV === 'development' ? {
     host: true,
     proxy: {
       '/api': {
@@ -57,5 +61,5 @@ export default defineConfig({
         }
       }
     }
-  }
+  } : undefined
 })
