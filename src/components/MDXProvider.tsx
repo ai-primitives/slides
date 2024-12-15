@@ -1,8 +1,8 @@
 import { ReactNode, useState, useEffect } from 'react'
-import { MDXProvider as BaseMDXProvider } from '@mdx-js/react'
+import { MDXProvider as BaseMDXProvider, useMDXComponents } from '@mdx-js/react'
 import { components } from './mdx-components'
+import { compile, run } from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
-import { compile } from '@mdx-js/mdx'
 
 interface MDXProviderProps {
   children?: ReactNode
@@ -12,19 +12,14 @@ interface MDXProviderProps {
 export function MDXProvider({ children, content }: MDXProviderProps) {
   const [compiledContent, setCompiledContent] = useState<ReactNode | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const mdxComponents = useMDXComponents(components)
 
   useEffect(() => {
     if (content) {
-      compile(content, {
-        outputFormat: 'function-body',
-        jsxRuntime: 'automatic',
-        jsxImportSource: 'react',
-        development: true,
-      })
-        .then((compiled) => {
-          const evalFn = new Function('React', 'runtime', `${compiled}`)
-          const { default: MDXContent } = evalFn(runtime, runtime)
-          setCompiledContent(<MDXContent components={components} />)
+      compile(content)
+        .then((compiled) => run(compiled, { ...runtime, useMDXComponents }))
+        .then(({ default: Content }) => {
+          setCompiledContent(<Content components={mdxComponents} />)
           setError(null)
         })
         .catch((err) => {
@@ -32,7 +27,7 @@ export function MDXProvider({ children, content }: MDXProviderProps) {
           setError('Failed to compile MDX content')
         })
     }
-  }, [content])
+  }, [content, mdxComponents])
 
   if (error) {
     return <div className="p-4 text-red-500 bg-red-50 rounded">{error}</div>
