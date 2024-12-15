@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AIPreview } from './components/AIPreview'
 import { ExampleSlides } from './components/ExampleSlides'
 import { initTheme } from './lib/theme'
+import '@code-hike/mdx/dist/index.css'
 import './index.css'
 
 initTheme()
