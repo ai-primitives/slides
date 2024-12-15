@@ -1,11 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { MDXProvider } from './components/MDXProvider'
+import ExampleSlides from './slides/example.mdx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div className="p-4">
-      <h1 className="text-4xl font-bold">AI-Generated MDX Slides</h1>
-    </div>
+    <MDXProvider>
+      <div className="slides-container">
+        <ExampleSlides />
+      </div>
+    </MDXProvider>
   </React.StrictMode>,
 )
