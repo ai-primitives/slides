@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-rgb: 255, 255, 255;
+    --primary-rgb: 59, 130, 246;
+    --primary-hover-rgb: 37, 99, 235;
+    --border-rgb: 229, 231, 235;
+    --code-bg-rgb: 243, 244, 246;
+  }
+
+  .dark {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 17, 24, 39;
+    --primary-rgb: 96, 165, 250;
+    --primary-hover-rgb: 147, 197, 253;
+    --border-rgb: 75, 85, 99;
+    --code-bg-rgb: 31, 41, 55;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+  }
+}
