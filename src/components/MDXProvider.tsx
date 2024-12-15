@@ -15,11 +15,17 @@ export function MDXProvider({ children, content }: MDXProviderProps) {
 
   useEffect(() => {
     if (content) {
-      compile(content, { outputFormat: 'function-body', pragma: 'React.createElement' })
+      compile(content, {
+        outputFormat: 'function-body',
+        pragma: 'React.createElement',
+        pragmaFrag: 'React.Fragment',
+        jsxImportSource: '@mdx-js/react',
+        development: true,
+      })
         .then((compiled) => {
           // @ts-ignore - Runtime type mismatch is expected
           const { default: MDXContent } = new Function('runtime', `${compiled}`)(runtime)
-          setCompiledContent(<MDXContent />)
+          setCompiledContent(<MDXContent components={components} />)
           setError(null)
         })
         .catch((err) => {
