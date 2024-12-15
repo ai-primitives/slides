@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/cosmos-config",
+  "staticPath": "public",
+  "vite": {
+    "configPath": "./vite.config.ts"
+  },
+  "ui": {
+    "responsivePreview": {
+      "devices": [
+        { "label": "Desktop", "width": 1920, "height": 1080 },
+        { "label": "Mobile", "width": 375, "height": 667 }
+      ]
+    }
+  }
+}
