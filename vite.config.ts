@@ -41,6 +41,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react', 'react-dom', '@mdx-js/react', 'codehike'],
   },
+  assetsInclude: ['**/*.mdx'],
   server: {
     host: true,
     proxy: {
