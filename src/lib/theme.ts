@@ -1,27 +1,26 @@
-// Check if window is defined (browser environment)
 const isClient = typeof window !== 'undefined'
 
-// Function to get system color scheme preference
 function getSystemPreference(): 'dark' | 'light' {
   if (!isClient) return 'light'
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
-// Function to set theme
 export function setTheme(theme: 'dark' | 'light' | 'system') {
   if (!isClient) return
 
+  let effectiveTheme: 'dark' | 'light'
   if (theme === 'system') {
-    const systemTheme = getSystemPreference()
-    document.documentElement.classList.toggle('dark', systemTheme === 'dark')
+    effectiveTheme = getSystemPreference()
   } else {
-    document.documentElement.classList.toggle('dark', theme === 'dark')
+    effectiveTheme = theme
   }
+
+  document.documentElement.classList.toggle('dark', effectiveTheme === 'dark')
+  document.documentElement.setAttribute('data-theme', effectiveTheme)
 
   localStorage.setItem('theme', theme)
 }
 
-// Initialize theme
 export function initTheme() {
   if (!isClient) return
 
@@ -30,10 +29,9 @@ export function initTheme() {
 
   setTheme(theme)
 
-  // Listen for system theme changes
   if (theme === 'system') {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    mediaQuery.addEventListener('change', (e) => {
+    mediaQuery.addEventListener('change', () => {
       setTheme('system')
     })
   }
