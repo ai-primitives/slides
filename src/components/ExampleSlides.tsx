@@ -11,7 +11,11 @@ export function ExampleSlides() {
   useEffect(() => {
     async function loadMDX() {
       try {
-        const { default: MDXContent } = await evaluate(Example, { ...runtime })
+        const { default: MDXContent } = await evaluate(Example, {
+          ...runtime,
+          baseUrl: import.meta.url,
+          development: import.meta.env.DEV
+        })
         setContent(() => MDXContent)
       } catch (error) {
         console.error('Error loading MDX:', error)
