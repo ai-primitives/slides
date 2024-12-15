@@ -40,6 +40,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', '@mdx-js/react', 'codehike'],
+    exclude: ['@mdx-js/react']
   },
   assetsInclude: ['**/*.mdx'],
   server: {
