@@ -1,6 +1,5 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import { Slide } from './Slide'
-import { CodeBlock } from './CodeBlock'
 
 type HTMLProps = {
   h1: ComponentPropsWithoutRef<'h1'>
@@ -13,7 +12,6 @@ type HTMLProps = {
 
 type CustomComponents = {
   Slide: typeof Slide
-  CodeBlock: typeof CodeBlock
 }
 
 export const components = {
@@ -36,7 +34,6 @@ export const components = {
     <ol className="list-decimal list-inside mb-4" {...props}>{children}</ol>
   ),
   Slide,
-  CodeBlock,
 } as const
 
 export type { CustomComponents }
