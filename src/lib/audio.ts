@@ -37,7 +37,7 @@ export function estimateAudioDuration(text: string, speed: number = DEFAULT_VOIC
   return (wordCount / wordsPerMinute) * 60
 }
 
-export async function createAudioStream(buffer: ArrayBuffer, format: AudioFormat): Promise<MediaStream> {
+export async function createAudioStream(buffer: ArrayBuffer): Promise<MediaStream> {
   const audioContext = new AudioContext()
   const audioBuffer = await audioContext.decodeAudioData(buffer)
   const source = audioContext.createBufferSource()

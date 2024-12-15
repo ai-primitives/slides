@@ -17,24 +17,18 @@ importers:
       '@mdx-js/react':
         specifier: ^3.1.0
         version: 3.1.0(@types/react@19.0.1)(react@18.3.1)
-      '@slidev/cli':
-        specifier: ^0.50.0-beta.10
-        version: 0.50.0-beta.10(@babel/parser@7.26.3)(@nuxt/kit@3.14.1592(rollup@4.28.1))(@types/markdown-it@14.1.2)(@types/node@22.10.2)(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(tsx@4.19.2)
       '@slidev/client':
         specifier: 0.50.0-beta.10
-        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(svelte@5.13.0)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@slidev/parser':
         specifier: 0.50.0-beta.10
-        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
-      '@slidev/theme-default':
-        specifier: ^0.25.0
-        version: 0.25.0
+        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@tailwindcss/typography':
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.16)
       ai:
         specifier: ^2.2.37
-        version: 2.2.37(react@18.3.1)(solid-js@1.9.3)(vue@3.5.13(typescript@5.7.2))
+        version: 2.2.37(react@18.3.1)(solid-js@1.9.3)(svelte@5.13.0)(vue@3.5.13(typescript@5.7.2))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -75,12 +69,21 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
+      '@ai-sdk/provider':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@mdx-js/rollup':
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.14.0)(rollup@4.28.1)
+      '@slidev/cli':
+        specifier: 0.50.0-beta.10
+        version: 0.50.0-beta.10(@babel/parser@7.26.3)(@nuxt/kit@3.14.1592(rollup@4.28.1))(@types/markdown-it@14.1.2)(@types/node@22.10.2)(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(svelte@5.13.0)(tsx@4.19.2)
+      '@slidev/theme-default':
+        specifier: ^0.25.0
+        version: 0.25.0
       '@slidev/types':
         specifier: 0.50.0-beta.10
-        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+        version: 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@types/mdx-js__react':
         specifier: ^2.0.0
         version: 2.0.0(@types/react@19.0.1)(react@18.3.1)
@@ -102,6 +105,9 @@ importers:
       '@vitest/ui':
         specifier: ^2.1.8
         version: 2.1.8(vitest@2.1.8)
+      svelte:
+        specifier: ^5.0.0-0
+        version: 5.13.0
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -1485,6 +1491,11 @@ packages:
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
 
+  acorn-typescript@1.4.13:
+    resolution: {integrity: sha512-xsc9Xv0xlVfwp2o7sQ+GCQ1PgbkdcpWdTzrwXxO3xDMTAywVS3oXVOcOHuRjAPkS4P9b+yc/qNF15460v+jp4Q==}
+    peerDependencies:
+      acorn: '>=8.9.0'
+
   acorn@8.14.0:
     resolution: {integrity: sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==}
     engines: {node: '>=0.4.0'}
@@ -1547,6 +1558,10 @@ packages:
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
+  aria-query@5.3.2:
+    resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
+    engines: {node: '>= 0.4'}
+
   assertion-error@2.0.1:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
     engines: {node: '>=12'}
@@ -1571,6 +1586,10 @@ packages:
 
   axios@1.7.9:
     resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
+
+  axobject-query@4.1.0:
+    resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
+    engines: {node: '>= 0.4'}
 
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
@@ -2115,10 +2134,16 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
+  esm-env@1.2.1:
+    resolution: {integrity: sha512-U9JedYYjCnadUlXk7e1Kr+aENQhtUaoaV9+gZm1T8LC/YBAPJx3NSPIAurFOC0U5vrdSevnUJS2/wUVxGwPhng==}
+
   esprima@4.0.1:
     resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
     engines: {node: '>=4'}
     hasBin: true
+
+  esrap@1.2.3:
+    resolution: {integrity: sha512-ZlQmCCK+n7SGoqo7DnfKaP1sJZa49P01/dXzmjCASSo04p72w8EksT2NMK8CEX8DhKsfJXANioIw8VyHNsBfvQ==}
 
   estree-util-attach-comments@3.0.0:
     resolution: {integrity: sha512-cKUwm/HUcTDsYh/9FgnuFqpfquUbwIqwKM26BVCGDPVgvaCl/nDCCjUfiLlx6lsEZ3Z4RFxNbOQ60pkaEwFxGw==}
@@ -2536,6 +2561,9 @@ packages:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
 
+  is-reference@3.0.3:
+    resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
+
   is-regexp@3.1.0:
     resolution: {integrity: sha512-rbku49cWloU5bSMI+zaRaXdQHXnthP6DZ/vLnfdSKyL4zUzuWnomtOEiZZOd+ioQ+avFo/qau3KPTc7Fjy1uPA==}
     engines: {node: '>=12'}
@@ -2663,6 +2691,9 @@ packages:
   local-pkg@0.5.1:
     resolution: {integrity: sha512-9rrA30MRRP3gBD3HTGnC6cDFpaE1kVDWxWgqWJUN0RvDNAo+Nz/9GxB+nHOH0ifbVFy0hSA1V6vFDvnx54lTEQ==}
     engines: {node: '>=14'}
+
+  locate-character@3.0.0:
+    resolution: {integrity: sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA==}
 
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
@@ -3594,6 +3625,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  svelte@5.13.0:
+    resolution: {integrity: sha512-ZG4VmBNze/j2KxT2GEeUm8Jr3RLYQ3P5Y9/flUDCgaAxgzx4ZRTdiyh+PCr7qRlOr5M8uidIqr+3DwUFVrdL+A==}
+    engines: {node: '>=18'}
+
   svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
 
@@ -4127,6 +4162,9 @@ packages:
 
   zhead@2.2.4:
     resolution: {integrity: sha512-8F0OI5dpWIA5IGG5NHUg9staDwz/ZPxZtvGVf01j7vHqSyZ0raHY+78atOVxRqb73AotX22uV1pXt3gYSstGag==}
+
+  zimmerframe@1.1.2:
+    resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
 
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
@@ -4942,7 +4980,7 @@ snapshots:
   '@sindresorhus/merge-streams@2.3.0':
     optional: true
 
-  '@slidev/cli@0.50.0-beta.10(@babel/parser@7.26.3)(@nuxt/kit@3.14.1592(rollup@4.28.1))(@types/markdown-it@14.1.2)(@types/node@22.10.2)(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(tsx@4.19.2)':
+  '@slidev/cli@0.50.0-beta.10(@babel/parser@7.26.3)(@nuxt/kit@3.14.1592(rollup@4.28.1))(@types/markdown-it@14.1.2)(@types/node@22.10.2)(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(svelte@5.13.0)(tsx@4.19.2)':
     dependencies:
       '@antfu/ni': 0.23.1
       '@antfu/utils': 0.7.10
@@ -4953,9 +4991,9 @@ snapshots:
       '@shikijs/markdown-it': 1.24.2
       '@shikijs/twoslash': 1.24.2(typescript@5.6.3)
       '@shikijs/vitepress-twoslash': 1.24.2(@nuxt/kit@3.14.1592(rollup@4.28.1))(typescript@5.6.3)
-      '@slidev/client': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
-      '@slidev/parser': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
-      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+      '@slidev/client': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(svelte@5.13.0)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+      '@slidev/parser': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@unocss/extractor-mdc': 0.65.1
       '@unocss/reset': 0.65.1
       '@vitejs/plugin-vue': 5.2.1(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
@@ -4995,12 +5033,12 @@ snapshots:
       resolve-global: 2.0.0
       semver: 7.6.3
       shiki: 1.24.2
-      shiki-magic-move: 0.5.2(react@18.3.1)(shiki@1.24.2)(solid-js@1.9.3)(vue@3.5.13(typescript@5.7.2))
+      shiki-magic-move: 0.5.2(react@18.3.1)(shiki@1.24.2)(solid-js@1.9.3)(svelte@5.13.0)(vue@3.5.13(typescript@5.7.2))
       sirv: 3.0.0
       source-map-js: 1.2.1
       typescript: 5.6.3
       unocss: 0.65.1(postcss@8.4.49)(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
-      unplugin-icons: 0.20.2(@vue/compiler-sfc@3.5.13)
+      unplugin-icons: 0.20.2(@vue/compiler-sfc@3.5.13)(svelte@5.13.0)
       unplugin-vue-components: 0.27.5(@babel/parser@7.26.3)(@nuxt/kit@3.14.1592(rollup@4.28.1))(rollup@4.28.1)(vue@3.5.13(typescript@5.7.2))
       unplugin-vue-markdown: 0.27.1(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       untun: 0.1.3
@@ -5042,7 +5080,7 @@ snapshots:
       - vue-template-compiler
       - vue-template-es2015-compiler
 
-  '@slidev/client@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
+  '@slidev/client@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(react@18.3.1)(rollup@4.28.1)(solid-js@1.9.3)(svelte@5.13.0)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
     dependencies:
       '@antfu/utils': 0.7.10
       '@iconify-json/carbon': 1.2.4
@@ -5050,9 +5088,9 @@ snapshots:
       '@iconify-json/svg-spinners': 1.2.1
       '@shikijs/monaco': 1.24.2
       '@shikijs/vitepress-twoslash': 1.24.2(@nuxt/kit@3.14.1592(rollup@4.28.1))(typescript@5.6.3)
-      '@slidev/parser': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+      '@slidev/parser': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@slidev/rough-notation': 0.1.0
-      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       '@typescript/ata': 0.9.7(typescript@5.6.3)
       '@unhead/vue': 1.11.14(vue@3.5.13(typescript@5.7.2))
       '@unocss/reset': 0.65.1
@@ -5071,7 +5109,7 @@ snapshots:
       prettier: 3.4.2
       recordrtc: 5.6.2
       shiki: 1.24.2
-      shiki-magic-move: 0.5.2(react@18.3.1)(shiki@1.24.2)(solid-js@1.9.3)(vue@3.5.13(typescript@5.7.2))
+      shiki-magic-move: 0.5.2(react@18.3.1)(shiki@1.24.2)(solid-js@1.9.3)(svelte@5.13.0)(vue@3.5.13(typescript@5.7.2))
       typescript: 5.6.3
       unocss: 0.65.1(postcss@8.4.49)(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
       vue: 3.5.13(typescript@5.6.3)
@@ -5095,10 +5133,10 @@ snapshots:
       - vue-template-compiler
       - vue-template-es2015-compiler
 
-  '@slidev/parser@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
+  '@slidev/parser@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
     dependencies:
       '@antfu/utils': 0.7.10
-      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       yaml: 2.6.1
     transitivePeerDependencies:
       - '@nuxt/kit'
@@ -5115,10 +5153,10 @@ snapshots:
       - vue-template-compiler
       - vue-template-es2015-compiler
 
-  '@slidev/parser@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
+  '@slidev/parser@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
     dependencies:
       '@antfu/utils': 0.7.10
-      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
+      '@slidev/types': 0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       yaml: 2.6.1
     transitivePeerDependencies:
       - '@nuxt/kit'
@@ -5147,7 +5185,7 @@ snapshots:
 
   '@slidev/types@0.47.5': {}
 
-  '@slidev/types@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
+  '@slidev/types@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.6.3)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
     dependencies:
       '@antfu/utils': 0.7.10
       '@shikijs/markdown-it': 1.24.2
@@ -5158,7 +5196,7 @@ snapshots:
       monaco-editor: 0.51.0
       shiki: 1.24.2
       unocss: 0.65.1(postcss@8.4.49)(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
-      unplugin-icons: 0.20.2(@vue/compiler-sfc@3.5.13)
+      unplugin-icons: 0.20.2(@vue/compiler-sfc@3.5.13)(svelte@5.13.0)
       unplugin-vue-markdown: 0.27.1(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       vite-plugin-inspect: 0.10.3(@nuxt/kit@3.14.1592(rollup@4.28.1))(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       vite-plugin-remote-assets: 0.6.0(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
@@ -5181,7 +5219,7 @@ snapshots:
       - vue-template-compiler
       - vue-template-es2015-compiler
 
-  '@slidev/types@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
+  '@slidev/types@0.50.0-beta.10(@nuxt/kit@3.14.1592(rollup@4.28.1))(@vue/compiler-sfc@3.5.13)(postcss@8.4.49)(rollup@4.28.1)(svelte@5.13.0)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))':
     dependencies:
       '@antfu/utils': 0.7.10
       '@shikijs/markdown-it': 1.24.2
@@ -5192,7 +5230,7 @@ snapshots:
       monaco-editor: 0.51.0
       shiki: 1.24.2
       unocss: 0.65.1(postcss@8.4.49)(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
-      unplugin-icons: 0.20.2(@vue/compiler-sfc@3.5.13)
+      unplugin-icons: 0.20.2(@vue/compiler-sfc@3.5.13)(svelte@5.13.0)
       unplugin-vue-markdown: 0.27.1(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       vite-plugin-inspect: 0.10.3(@nuxt/kit@3.14.1592(rollup@4.28.1))(rollup@4.28.1)(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
       vite-plugin-remote-assets: 0.6.0(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(tsx@4.19.2)(yaml@2.6.1))
@@ -5885,24 +5923,29 @@ snapshots:
     dependencies:
       acorn: 8.14.0
 
+  acorn-typescript@1.4.13(acorn@8.14.0):
+    dependencies:
+      acorn: 8.14.0
+
   acorn@8.14.0: {}
 
   agentkeepalive@4.5.0:
     dependencies:
       humanize-ms: 1.2.1
 
-  ai@2.2.37(react@18.3.1)(solid-js@1.9.3)(vue@3.5.13(typescript@5.7.2)):
+  ai@2.2.37(react@18.3.1)(solid-js@1.9.3)(svelte@5.13.0)(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       eventsource-parser: 1.0.0
       nanoid: 3.3.6
       solid-swr-store: 0.10.7(solid-js@1.9.3)(swr-store@0.10.6)
-      sswr: 2.0.0
+      sswr: 2.0.0(svelte@5.13.0)
       swr: 2.2.0(react@18.3.1)
       swr-store: 0.10.6
       swrv: 1.0.4(vue@3.5.13(typescript@5.7.2))
     optionalDependencies:
       react: 18.3.1
       solid-js: 1.9.3
+      svelte: 5.13.0
       vue: 3.5.13(typescript@5.7.2)
 
   alien-signals@0.2.2: {}
@@ -5932,6 +5975,8 @@ snapshots:
 
   argparse@2.0.1: {}
 
+  aria-query@5.3.2: {}
+
   assertion-error@2.0.1: {}
 
   astring@1.9.0: {}
@@ -5957,6 +6002,8 @@ snapshots:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+
+  axobject-query@4.1.0: {}
 
   bail@2.0.2: {}
 
@@ -6576,7 +6623,14 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
+  esm-env@1.2.1: {}
+
   esprima@4.0.1: {}
+
+  esrap@1.2.3:
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.5.0
+      '@types/estree': 1.0.6
 
   estree-util-attach-comments@3.0.0:
     dependencies:
@@ -7046,6 +7100,10 @@ snapshots:
 
   is-plain-obj@4.1.0: {}
 
+  is-reference@3.0.3:
+    dependencies:
+      '@types/estree': 1.0.6
+
   is-regexp@3.1.0: {}
 
   is-stream@3.0.0:
@@ -7157,6 +7215,8 @@ snapshots:
     dependencies:
       mlly: 1.7.3
       pkg-types: 1.2.1
+
+  locate-character@3.0.0: {}
 
   lodash-es@4.17.21: {}
 
@@ -8268,7 +8328,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shiki-magic-move@0.5.2(react@18.3.1)(shiki@1.24.2)(solid-js@1.9.3)(vue@3.5.13(typescript@5.7.2)):
+  shiki-magic-move@0.5.2(react@18.3.1)(shiki@1.24.2)(solid-js@1.9.3)(svelte@5.13.0)(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       diff-match-patch-es: 0.1.1
       ohash: 1.1.4
@@ -8276,6 +8336,7 @@ snapshots:
       react: 18.3.1
       shiki: 1.24.2
       solid-js: 1.9.3
+      svelte: 5.13.0
       vue: 3.5.13(typescript@5.7.2)
 
   shiki@1.24.2:
@@ -8329,8 +8390,9 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  sswr@2.0.0:
+  sswr@2.0.0(svelte@5.13.0):
     dependencies:
+      svelte: 5.13.0
       swrev: 4.0.0
 
   stackback@0.0.2: {}
@@ -8410,6 +8472,22 @@ snapshots:
       time-span: 5.1.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  svelte@5.13.0:
+    dependencies:
+      '@ampproject/remapping': 2.3.0
+      '@jridgewell/sourcemap-codec': 1.5.0
+      '@types/estree': 1.0.6
+      acorn: 8.14.0
+      acorn-typescript: 1.4.13(acorn@8.14.0)
+      aria-query: 5.3.2
+      axobject-query: 4.1.0
+      esm-env: 1.2.1
+      esrap: 1.2.3
+      is-reference: 3.0.3
+      locate-character: 3.0.0
+      magic-string: 0.30.15
+      zimmerframe: 1.1.2
 
   svg-tags@1.0.0: {}
 
@@ -8676,7 +8754,7 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-icons@0.20.2(@vue/compiler-sfc@3.5.13):
+  unplugin-icons@0.20.2(@vue/compiler-sfc@3.5.13)(svelte@5.13.0):
     dependencies:
       '@antfu/install-pkg': 0.5.0
       '@antfu/utils': 0.7.10
@@ -8687,6 +8765,7 @@ snapshots:
       unplugin: 1.16.0
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.13
+      svelte: 5.13.0
     transitivePeerDependencies:
       - supports-color
 
@@ -9020,6 +9099,8 @@ snapshots:
       yargs-parser: 21.1.1
 
   zhead@2.2.4: {}
+
+  zimmerframe@1.1.2: {}
 
   zod@3.24.1: {}
 

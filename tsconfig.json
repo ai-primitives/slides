@@ -5,7 +5,9 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -20,8 +22,8 @@
       "@/*": ["src/*"],
       "components/*": ["src/components/*"]
     },
-    "types": ["vite/client", "@mdx-js/react"]
+    "types": ["vite/client", "@mdx-js/react", "@slidev/types"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
