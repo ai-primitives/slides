@@ -11,6 +11,9 @@ importers:
       '@ai-sdk/openai':
         specifier: ^1.0.8
         version: 1.0.8(zod@3.24.1)
+      '@code-hike/mdx':
+        specifier: ^0.9.0
+        version: 0.9.0(react@18.3.1)
       '@mdx-js/mdx':
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.14.0)
@@ -301,8 +304,16 @@ packages:
   '@chevrotain/utils@11.0.3':
     resolution: {integrity: sha512-YslZMgtJUyuMbZ+aKvfF3x1f5liK4mWNxghFRv7jqRR9C3R3fAOGTTKvxXDa2Y1s9zSbcpuO0cAxDYsc9SrXoQ==}
 
+  '@code-hike/lighter@0.7.0':
+    resolution: {integrity: sha512-64O07rIORKQLB+5T/GKAmKcD9sC0N9yHFJXa0Hs+0Aee1G+I4bSXxTccuDFP6c/G/3h5Pk7yv7PoX9/SpzaeiQ==}
+
   '@code-hike/lighter@1.0.1':
     resolution: {integrity: sha512-mccvcsk5UTScRrE02oBz1/qzckyhD8YE3VQlQv++2bSVVZgNuCUX8MpokSCi5OmfRAAxbj6kmNiqq1Um8eXPrw==}
+
+  '@code-hike/mdx@0.9.0':
+    resolution: {integrity: sha512-0wg68ZCjVWAkWT4gBUZJ8Mwktjen/XeWyqBQCrhA2IZSbZZnMYsEI6JJEFb/nZoNI3comB3JdxPLykZRq3qT2A==}
+    peerDependencies:
+      react: ^16.8.3 || ^17 || ^18
 
   '@drauu/core@0.4.2':
     resolution: {integrity: sha512-kb2DdE8E+5CHESd9887yYFqa1MBSWQeu64qS9/oW70yLSXJS+XCt/QWBcSRzY2mWd6TVugyuq/wRnTNOx5c1/g==}
@@ -4083,9 +4094,19 @@ snapshots:
 
   '@chevrotain/utils@11.0.3': {}
 
+  '@code-hike/lighter@0.7.0': {}
+
   '@code-hike/lighter@1.0.1':
     dependencies:
       ansi-sequence-parser: 1.1.1
+
+  '@code-hike/mdx@0.9.0(react@18.3.1)':
+    dependencies:
+      '@code-hike/lighter': 0.7.0
+      node-fetch: 2.7.0
+      react: 18.3.1
+    transitivePeerDependencies:
+      - encoding
 
   '@drauu/core@0.4.2': {}
 
