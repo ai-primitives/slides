@@ -3,7 +3,8 @@ import { components } from './mdx-components'
 import Example from '../slides/example.mdx?raw'
 import { useState, useEffect } from 'react'
 import { evaluate } from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime'
+import * as jsxRuntime from 'react/jsx-runtime'
+import { jsxDEV } from 'react/jsx-dev-runtime'
 
 export function ExampleSlides() {
   const [Content, setContent] = useState<React.ComponentType | null>(null)
@@ -12,7 +13,8 @@ export function ExampleSlides() {
     async function loadMDX() {
       try {
         const { default: MDXContent } = await evaluate(Example, {
-          ...runtime,
+          ...jsxRuntime,
+          jsxDEV,
           baseUrl: import.meta.url,
           development: import.meta.env.DEV
         })
