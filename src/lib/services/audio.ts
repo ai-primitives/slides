@@ -3,6 +3,12 @@ import { DEFAULT_VOICE_CONFIG } from '../constants'
 import { AudioServiceResult, AudioStreamController, AudioServiceOptions } from '../services/types'
 import { BaseAudioService } from './base'
 
+class AudioServiceError extends Error {
+  constructor(message: string, public provider: 'openai' | 'elevenlabs') {
+    super(`${provider.toUpperCase()} API error: ${message}`)
+  }
+}
+
 export class OpenAIAudioService extends BaseAudioService {
   constructor(options?: AudioServiceOptions) {
     super(options)
@@ -17,30 +23,38 @@ export class OpenAIAudioService extends BaseAudioService {
       speed = DEFAULT_VOICE_CONFIG.speed,
     } = options
 
-    const response = await fetch('https://api.openai.com/v1/audio/speech', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify({
-        model,
-        input: content,
-        voice,
-        response_format: format,
-        speed,
-      }),
-    })
+    try {
+      const response = await fetch('https://api.openai.com/v1/audio/speech', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.apiKey}`,
+        },
+        body: JSON.stringify({
+          model,
+          input: content,
+          voice,
+          response_format: format,
+          speed,
+        }),
+      })
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: { message: response.statusText } }))
-      throw new Error(`OpenAI API error: ${error.error?.message || response.statusText}`)
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ error: { message: 'Unknown error' } }))
+        throw new AudioServiceError(error.error?.message || 'Failed to generate audio', 'openai')
+      }
+
+      const audioBuffer = await response.arrayBuffer()
+      return {
+        audio: audioBuffer,
+        format,
+        duration: this.estimateAudioDuration(audioBuffer),
+      }
+    } catch (error: unknown) {
+      if (error instanceof AudioServiceError) throw error
+      const message = error instanceof Error ? error.message : 'Failed to generate audio'
+      throw new AudioServiceError(message, 'openai')
     }
-
-    const audio = await response.arrayBuffer()
-    const duration = this.estimateAudioDuration(content, speed)
-
-    return { audio, format, duration }
   }
 
   async createStream(options: VoiceoverOptions): Promise<AudioStreamController> {
@@ -78,11 +92,11 @@ export class OpenAIAudioService extends BaseAudioService {
           })
 
           if (!response.ok) {
-            throw new Error(`OpenAI API error: ${response.statusText}`)
+            throw new AudioServiceError(response.statusText, 'openai')
           }
 
           if (!response.body) {
-            throw new Error('No response body')
+            throw new AudioServiceError('No response body', 'openai')
           }
 
           const reader = response.body.getReader()
@@ -119,10 +133,9 @@ export class OpenAIAudioService extends BaseAudioService {
     }
   }
 
-  private estimateAudioDuration(text: string, speed: number): number {
-    const wordsPerMinute = 150 * speed
-    const wordCount = text.split(/\s+/).length
-    return (wordCount / wordsPerMinute) * 60
+  private estimateAudioDuration(audioBuffer: ArrayBuffer): number {
+    // Estimate duration based on buffer size and typical audio bitrate (128kbps)
+    return (audioBuffer.byteLength * 8) / (128 * 1024)
   }
 }
 
@@ -136,37 +149,45 @@ export class ElevenLabsAudioService extends BaseAudioService {
       content,
       voice = DEFAULT_VOICE_CONFIG.voice,
       model = DEFAULT_VOICE_CONFIG.model,
-      format = DEFAULT_VOICE_CONFIG.format,
       speed = DEFAULT_VOICE_CONFIG.speed,
     } = options
 
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'xi-api-key': this.apiKey,
-      },
-      body: JSON.stringify({
-        text: content,
-        model_id: model,
-        voice_settings: {
-          stability: 0.5,
-          similarity_boost: 0.75,
-          style: 0.5,
-          speaking_rate: speed,
+    try {
+      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice}/stream`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'xi-api-key': this.apiKey,
         },
-      }),
-    })
+        body: JSON.stringify({
+          text: content,
+          model_id: model,
+          voice_settings: {
+            stability: 0.5,
+            similarity_boost: 0.75,
+            style: 0.0,
+            use_speaker_boost: true,
+            speaking_rate: speed,
+          },
+        }),
+      })
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({ detail: response.statusText }))
-      throw new Error(`ElevenLabs API error: ${error.detail || response.statusText}`)
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ detail: { message: 'Unknown error' } }))
+        throw new AudioServiceError(error.detail?.message || 'Failed to generate audio', 'elevenlabs')
+      }
+
+      const audioBuffer = await response.arrayBuffer()
+      return {
+        audio: audioBuffer,
+        format: 'mp3',
+        duration: this.estimateAudioDuration(audioBuffer),
+      }
+    } catch (error: unknown) {
+      if (error instanceof AudioServiceError) throw error
+      const message = error instanceof Error ? error.message : 'Failed to generate audio'
+      throw new AudioServiceError(message, 'elevenlabs')
     }
-
-    const audio = await response.arrayBuffer()
-    const duration = this.estimateAudioDuration(content, speed)
-
-    return { audio, format, duration }
   }
 
   async createStream(options: VoiceoverOptions): Promise<AudioStreamController> {
@@ -198,7 +219,8 @@ export class ElevenLabsAudioService extends BaseAudioService {
               voice_settings: {
                 stability: 0.5,
                 similarity_boost: 0.75,
-                style: 0.5,
+                style: 0.0,
+                use_speaker_boost: true,
                 speaking_rate: speed,
               },
             }),
@@ -206,11 +228,11 @@ export class ElevenLabsAudioService extends BaseAudioService {
           })
 
           if (!response.ok) {
-            throw new Error(`ElevenLabs API error: ${response.statusText}`)
+            throw new AudioServiceError(response.statusText, 'elevenlabs')
           }
 
           if (!response.body) {
-            throw new Error('No response body')
+            throw new AudioServiceError('No response body', 'elevenlabs')
           }
 
           const reader = response.body.getReader()
@@ -247,10 +269,9 @@ export class ElevenLabsAudioService extends BaseAudioService {
     }
   }
 
-  private estimateAudioDuration(text: string, speed: number): number {
-    const wordsPerMinute = 150 * speed
-    const wordCount = text.split(/\s+/).length
-    return (wordCount / wordsPerMinute) * 60
+  private estimateAudioDuration(audioBuffer: ArrayBuffer): number {
+    // Estimate duration based on buffer size and typical audio bitrate (128kbps)
+    return (audioBuffer.byteLength * 8) / (128 * 1024)
   }
 }
 

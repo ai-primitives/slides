@@ -60,7 +60,7 @@ describe('Audio Services', () => {
   })
 
   it('should handle API errors gracefully', async () => {
-    const service = new OpenAIAudioService('invalid_key')
+    const service = new OpenAIAudioService({ apiKey: 'invalid_key' })
     const options: VoiceoverOptions = {
       content: 'Test content',
       provider: 'openai',
@@ -70,6 +70,6 @@ describe('Audio Services', () => {
       speed: 1.0
     }
 
-    await expect(service.generateAudio(options)).rejects.toThrow('OpenAI API error')
+    await expect(service.generateAudio(options)).rejects.toThrow('OPENAI API error')
   })
 })
