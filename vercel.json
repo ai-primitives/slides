@@ -1,0 +1,20 @@
+{
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install",
+  "framework": "vite",
+  "outputDirectory": "dist",
+  "regions": ["iad1"],
+  "env": {
+    "OPENAI_API_KEY": "string",
+    "ELEVENLABS_API_KEY": "string",
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "api/**/*": {
+      "runtime": "@vercel/edge",
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}
