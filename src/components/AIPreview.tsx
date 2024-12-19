@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { MDXProvider } from './MDXProvider'
 import { AISlideGenerator } from './AISlideGenerator'
 

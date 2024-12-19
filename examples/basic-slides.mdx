@@ -1,0 +1,81 @@
+---
+theme: default
+layout: center
+---
+
+# Basic MDX Slides Example
+Using @mdx.do/slides with AI-Generated Content
+
+---
+layout: default
+---
+
+## Features Demonstrated
+
+- Automatic dark/light mode
+- Multiple layouts
+- Code highlighting
+- AI-generated content
+- Voiceover support
+
+<CodeBlock language="typescript">
+const theme = {
+  light: {
+    primary: '#3B82F6',
+    background: '#FFFFFF'
+  },
+  dark: {
+    primary: '#60A5FA',
+    background: '#1F2937'
+  }
+}
+</CodeBlock>
+
+---
+layout: split
+---
+
+# Split Layout Example
+
+::left::
+- Perfect for comparisons
+- Side-by-side content
+- Responsive design
+
+::right::
+```jsx
+function Demo() {
+  return (
+    <div className="flex">
+      <div className="w-1/2">Left</div>
+      <div className="w-1/2">Right</div>
+    </div>
+  )
+}
+```
+
+---
+layout: center
+---
+
+# AI-Generated Content Demo
+
+<AISlideGenerator
+  topic="React Hooks"
+  style="educational"
+/>
+
+---
+layout: default
+---
+
+## Voiceover Integration
+
+<AIVoiceover
+  content="This slide demonstrates the voiceover generation feature."
+  voice="natural"
+/>
+
+- Automatic speech generation
+- Natural voice synthesis
+- Timing synchronization

@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "preserve",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "noEmit": false,
+    "incremental": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "outDir": "dist/api"
+  },
+  "include": ["src/app/api/**/*"],
+  "exclude": ["node_modules"]
+}
