@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm build",
+  "buildCommand": "pnpm build && pnpm build:api",
   "devCommand": "pnpm dev",
   "installCommand": "pnpm install",
   "framework": "vite",
@@ -8,13 +8,17 @@
   "env": {
     "OPENAI_API_KEY": "string",
     "ELEVENLABS_API_KEY": "string",
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "EDGE_CONFIG": "@slides-edge-config"
   },
   "functions": {
     "api/**/*": {
-      "runtime": "@vercel/edge",
+      "runtime": "@vercel/edge@latest",
       "memory": 1024,
-      "maxDuration": 10
+      "maxDuration": 10,
+      "environment": {
+        "EDGE_RUNTIME": "edge"
+      }
     }
   }
 }
